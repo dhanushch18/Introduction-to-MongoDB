@@ -1,0 +1,74 @@
+C:\Users\malav>mongosh
+Current Mongosh Log ID: 65cae41711ebb50b1104e268
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.1.4
+Using MongoDB:          7.0.5
+Using Mongosh:          2.1.4
+
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
+
+
+To help improve our products, anonymous usage data is collected and sent to MongoDB periodically (https://www.mongodb.com/legal/privacy-policy).
+You can opt-out by running the disableTelemetry() command.
+
+
+
+
+
+
+test> show dbs
+admin   40.00 KiB
+config  12.00 KiB
+local   40.00 KiB
+test> use blog
+switched to db blog
+blog> db.createCollection("posts")
+{ ok: 1 }
+blog>  db.createCollection("user")
+{ ok: 1 }
+blog> show collections
+posts
+user
+blog> db.createCollection("persons")
+{ ok: 1 }
+blog> db.user.drop()
+true
+blog> show collections
+persons
+posts
+blog> db.posts.drop()
+true
+blog> show collections
+persons
+blog> db.persons.insert(
+... {
+... FirstName : "Dhanush"
+... LastName : "ch",
+Uncaught:
+SyntaxError: Unexpected token, expected "," (4:0)
+
+  2 | {
+  3 | FirstName : "Dhanush"
+> 4 | LastName : "ch",
+    | ^
+  5 |
+
+blog> db.persons.insert( { FirstName : 'Dhanush' ,LastName : 'ch',
+... Age : 23,
+... City : 'Kannur'
+... }
+... )
+DeprecationWarning: Collection.insert() is deprecated. Use insertOne, insertMany, or bulkWrite.
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('65caebfb11ebb50b1104e269') }
+}
+blog> db.persons.find()
+[
+  {
+    _id: ObjectId('65caebfb11ebb50b1104e269'),
+    FirstName: 'Dhanush',
+    LastName: 'ch',
+    Age: 23,
+    City: 'Kannur'
+  }
+]
